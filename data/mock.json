@@ -1,0 +1,11 @@
+{
+  "body": {
+    "idMedic": "0cf780f3-a987-4812-963e-4973fc90d971",
+    "idSpeciality": "f228386e-fb21-4a7d-a60c-6e844b39be16",
+    "idAgenda": "180a5b76-27c9-4532-bd49-94d01f9350db",
+    "pacientName": "Jesus",
+    "pacientLastName": "Marenco",
+    "pacientPhone": "3017860473",
+    "status": 0
+  }
+}
