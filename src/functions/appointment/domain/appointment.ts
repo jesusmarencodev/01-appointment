@@ -5,7 +5,8 @@ export interface AppointmentFieldsRequired {
   readonly pacientName: string;
   readonly pacientLastName: string;
   readonly pacientPhone: string;
-  readonly status: number
+  readonly status_appointment: number;
+  readonly countryISO: string;
 }
 
 //creamos un tipo para decir que todos los campos de la interfaz seran requeridos
@@ -17,8 +18,8 @@ export class Appointment {
   readonly idAgenda: string;
   readonly pacientName: string;
   readonly pacientLastName: string;
-  readonly pacientPhone: string;
-  status: number
+  readonly countryISO: string;
+  status_appointment: number;
 
   constructor(properties: FieldsRequired) {
     Object.assign(this, properties);

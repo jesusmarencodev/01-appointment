@@ -1,7 +1,9 @@
+import joi from "joi";
 import { AppointmentController } from "./adapters/controllers/appointment.controllers";
 import { AppointmentApplication } from "./application/appointment.application";
 import { Appointment, FieldsRequired } from "./domain/appointment";
 import { AppointmentRepository } from "./domain/repository/appoinment.repository";
+import { BusinessError } from "./helpers/errors.helper";
 import { AppointmentInfraestructure } from "./infraestructure/appointment.infraestructure";
 
 
@@ -17,9 +19,28 @@ const controller: AppointmentController = new AppointmentController(
 );
 
 export const appointmentHandler = async (event) => {
-
-
   const body = event.body;
+
+  const schema = joi.object({
+    idMedic: joi.string().required(),
+    idSpeciality: joi.string().required(),
+    idAgenda: joi.string().required(),
+    pacientName: joi.string().required(),
+    pacientLastName: joi.string().required(),
+    pacientPhone: joi.string().required(),
+    countryISO: joi.string().required(),
+  });
+
+  const validationResult: joi.ValidationResult<any> = schema.validate(body);
+
+  if (validationResult.error) {
+    throw new BusinessError(
+      validationResult.error.stack,
+      validationResult.error.message,
+      411
+    );
+  }
+
 
   const properties: FieldsRequired = {
     idMedic: body.idMedic,
@@ -28,7 +49,8 @@ export const appointmentHandler = async (event) => {
     pacientName: body.pacientName,
     pacientLastName: body.pacientLastName,
     pacientPhone: body.pacientPhone,
-    status: 0,
+    countryISO: body.countryISO,
+    status_appointment: 0,
   };
 
   const appointment: Appointment = new Appointment(properties);
