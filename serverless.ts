@@ -37,6 +37,11 @@ const serverlessConfiguration: AWS = {
             ],
             Resource: "arn:aws:logs:*:*:*",
           },
+          {
+            Effect: "Allow",
+            Action: "lambda:InvokeFunction",
+            Resource: "arn:aws:lambda:us-east-1:867855303039:*"
+          }
         ],
 
       }

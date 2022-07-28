@@ -41,7 +41,6 @@ export const appointmentHandler = async (event) => {
     );
   }
 
-
   const properties: FieldsRequired = {
     idMedic: body.idMedic,
     idSpeciality: body.idSpeciality,
@@ -55,11 +54,7 @@ export const appointmentHandler = async (event) => {
 
   const appointment: Appointment = new Appointment(properties);
 
-
-
   const result = await controller.create(appointment);
-
-
 
   return {
     statusCode: 200,
