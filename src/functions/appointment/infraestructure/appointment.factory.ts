@@ -16,24 +16,24 @@ export abstract class Factory {
   abstract lambdaNameInvoke: string;
   //abstract pattern: IPattern;
 
-  async sendMessage(appointment: Appointment): Promise<Appointment> {
+  async sendMessage(appointment: Appointment): Promise<any> {
 
-    await awsLambda.invoke({
+    const result = await awsLambda.invoke({
       InvocationType: "RequestResponse",
-      FunctionName: this.lambdaNameInvoke
+      FunctionName: this.lambdaNameInvoke,
+      Payload: JSON.stringify(appointment)
     }).promise()
 
-    return appointment
+    return result;
   }
 }
 
 export class FactoryPE extends Factory {
-  lambdaNameInvoke: string = 'appointment-pe-dev';// process.env.LAMBDA_CORE_PE;
+  lambdaNameInvoke: string = process.env.LAMBDA_CORE_PE;
   /*   pattern: IPattern = {
       Source: "appointment",
       DetailType: "appointment-create-pe",
     }; */
-
 }
 
 export class FactoryCO extends Factory {
@@ -42,7 +42,6 @@ export class FactoryCO extends Factory {
       Source: "appointment",
       DetailType: "appointment-create-co",
     }; */
-
 }
 
 export class FactoryEC extends Factory {
@@ -51,5 +50,4 @@ export class FactoryEC extends Factory {
       Source: "appointment",
       DetailType: "appointment-create-ec",
     }; */
-
 }

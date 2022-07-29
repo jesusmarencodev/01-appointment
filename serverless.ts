@@ -23,6 +23,9 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+      LAMBDA_CORE_PE : "appointment-pe-${self:provider.stage}-appointment",
+      LAMBDA_CORE_CO : "appointment-co-${self:provider.stage}-appointment",
+      LAMBDA_CORE_EC : "appointment-ec-${self:provider.stage}-appointment",
     },
     iam: {
       role: {
