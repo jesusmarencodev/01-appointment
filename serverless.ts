@@ -44,6 +44,13 @@ const serverlessConfiguration: AWS = {
             Effect: "Allow",
             Action: "lambda:InvokeFunction",
             Resource: "arn:aws:lambda:us-east-1:867855303039:*"
+          },
+          {
+            Effect: "Allow",
+            Action: "events:PutEvents",
+            //Aqui puedo colocar el ARN del eventBridge pero tambien puedo colocar * que  significa que puedo enviar eventos 
+            //a todos los recursos, aunque en el factory solo configuramos a events bredges. 
+            Resource: "*" 
           }
         ],
 

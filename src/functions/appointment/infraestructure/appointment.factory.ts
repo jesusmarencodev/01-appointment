@@ -6,48 +6,37 @@ export interface IPattern {
   Source: string;
   DetailType: string;
 }
-
-const awsLambda = new AWS.Lambda();
-//const awsEventBridge = new AWS.EventBridge();
-
+const awsEventBridge = new AWS.EventBridge();
 //const dynamodb = new AWS.DynamoDB.DocumentClient();
-
 export abstract class Factory {
-  abstract lambdaNameInvoke: string;
-  //abstract pattern: IPattern;
-
+  abstract pattern: IPattern;
   async sendMessage(appointment: Appointment): Promise<any> {
-
-    const result = await awsLambda.invoke({
-      InvocationType: "RequestResponse",
-      FunctionName: this.lambdaNameInvoke,
-      Payload: JSON.stringify(appointment)
-    }).promise()
+    const parameters = {
+      Entries: [{ ... this.pattern, Detail: JSON.stringify(appointment), EventBusName: "EventBusPracticaAWSServerless01" }]
+    }
+    const result = await awsEventBridge.putEvents(parameters).promise();
 
     return result;
   }
 }
 
 export class FactoryPE extends Factory {
-  lambdaNameInvoke: string = process.env.LAMBDA_CORE_PE;
-  /*   pattern: IPattern = {
-      Source: "appointment",
-      DetailType: "appointment-create-pe",
-    }; */
+  pattern: IPattern = {
+    Source: "appointment",
+    DetailType: "appointment-create-pe",
+  };
 }
 
 export class FactoryCO extends Factory {
-  lambdaNameInvoke: string = process.env.LAMBDA_CORE_CO;
-  /*   pattern: IPattern = {
-      Source: "appointment",
-      DetailType: "appointment-create-co",
-    }; */
+  pattern: IPattern = {
+    Source: "appointment",
+    DetailType: "appointment-create-co",
+  };
 }
 
 export class FactoryEC extends Factory {
-  lambdaNameInvoke: string = process.env.LAMBDA_CORE_EC;
-  /*   pattern: IPattern = {
-      Source: "appointment",
-      DetailType: "appointment-create-ec",
-    }; */
+  pattern: IPattern = {
+    Source: "appointment",
+    DetailType: "appointment-create-ec",
+  };
 }
