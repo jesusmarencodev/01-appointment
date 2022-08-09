@@ -93,6 +93,13 @@
                     "events:PutEvents"
                   ],
                   "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:*"
+                  ],
+                  "Resource": "arn:aws:dynamodb:us-east-1:*:table/Appointment-dev"
                 }
               ]
             }
@@ -107,7 +114,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "digital-test-ttaa-jdmp-adev",
-          "S3Key": "serverless/appointment/dev/1659294102399-2022-07-31T19:01:42.399Z/appointment.zip"
+          "S3Key": "serverless/appointment/dev/1660063343405-2022-08-09T16:42:23.405Z/appointment.zip"
         },
         "Handler": "src/functions/appointment/handler.appointmentHandler",
         "Runtime": "nodejs14.x",
@@ -139,7 +146,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "digital-test-ttaa-jdmp-adev",
-          "S3Key": "serverless/appointment/dev/1659294102399-2022-07-31T19:01:42.399Z/medic.zip"
+          "S3Key": "serverless/appointment/dev/1660063343405-2022-08-09T16:42:23.405Z/medic.zip"
         },
         "Handler": "src/functions/medic/handler.medic",
         "Runtime": "nodejs14.x",
@@ -176,14 +183,14 @@
         "CodeSha256": "UrCPA12AcL54bxcK2ssd3cFZ4bf/TxCWh1JVWKFQf6k="
       }
     },
-    "AppointmentLambdaVersionBtc1cJ7hyGlLNwi8ZmZpJ8TnYElXWpCuEpoRfs9PmM": {
+    "AppointmentLambdaVersionaEyxTIHfkXvSCVK1q0Us1ZkEpm7eT6deEZsYqiu0zL0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppointmentLambdaFunction"
         },
-        "CodeSha256": "UkVcK0E0KK+QgDffREW/77fXE9k2gt5OYe/7UEbQIMk="
+        "CodeSha256": "4H5MZ37IYjhTULiYnPNNfZFel+MbXS7/poM9xuL5rVE="
       }
     },
     "ApiGatewayResourceAppointment": {
@@ -397,7 +404,7 @@
         "MedicLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1659294099722": {
+    "ApiGatewayDeployment1660063339700": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": "2191e9kay8",
@@ -498,7 +505,7 @@
     "AppointmentLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppointmentLambdaVersionBtc1cJ7hyGlLNwi8ZmZpJ8TnYElXWpCuEpoRfs9PmM"
+        "Ref": "AppointmentLambdaVersionaEyxTIHfkXvSCVK1q0Us1ZkEpm7eT6deEZsYqiu0zL0"
       },
       "Export": {
         "Name": "sls-appointment-dev-AppointmentLambdaFunctionQualifiedArn"

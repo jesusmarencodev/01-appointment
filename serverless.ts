@@ -51,6 +51,11 @@ const serverlessConfiguration: AWS = {
             //Aqui puedo colocar el ARN del eventBridge pero tambien puedo colocar * que  significa que puedo enviar eventos 
             //a todos los recursos, aunque en el factory solo configuramos a events bredges. 
             Resource: "*" 
+          },
+          {//permisos para eescribir en un recurso de dynamodb
+            Effect: "Allow",
+            Action: "dynamodb:*",
+            Resource: "arn:aws:dynamodb:us-east-1:*:table/Appointment-${self:provider.stage}" 
           }
         ],
 

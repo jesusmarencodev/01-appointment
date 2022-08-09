@@ -7,13 +7,32 @@ export interface IPattern {
   DetailType: string;
 }
 const awsEventBridge = new AWS.EventBridge();
-//const dynamodb = new AWS.DynamoDB.DocumentClient();
+const dynamodb = new AWS.DynamoDB.DocumentClient();
 export abstract class Factory {
   abstract pattern: IPattern;
+
   async sendMessage(appointment: Appointment): Promise<any> {
+    console.log(`Sending ${appointment.countryISO}`);
+
+    const id = v4();
+
+    const newAppointment = {id, ...appointment}
+
     const parameters = {
-      Entries: [{ ... this.pattern, Detail: JSON.stringify(appointment), EventBusName: "EventBusPracticaAWSServerless01" }]
+      Entries: [
+        {
+          ...this.pattern,
+          Detail: JSON.stringify(newAppointment),
+          EventBusName: "EventBusPracticaAWSServerless01"
+        }
+      ]
     }
+
+    await dynamodb.put({
+      TableName: "Appointment-dev",
+      Item:newAppointment,
+    }).promise();
+
     const result = await awsEventBridge.putEvents(parameters).promise();
 
     return result;
