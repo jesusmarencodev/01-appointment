@@ -12,7 +12,8 @@ export abstract class Factory {
   abstract pattern: IPattern;
 
   async sendMessage(appointment: Appointment): Promise<any> {
-    console.log(`Sending ${appointment.countryISO}`);
+    console.log(`Sending ${appointment.countryISO} from   appointment-dev`);
+    
 
     const id = v4();
 
@@ -34,7 +35,7 @@ export abstract class Factory {
     }).promise();
 
     const result = await awsEventBridge.putEvents(parameters).promise();
-
+    console.log(parameters);
     return result;
   }
 }
